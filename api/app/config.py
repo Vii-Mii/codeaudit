@@ -1,3 +1,6 @@
+import json
+
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -11,7 +14,27 @@ class Settings(BaseSettings):
     cache_ttl_seconds: int = 3600
     github_client_id: str = ""
     github_client_secret: str = ""
-    cors_origins: list[str] = ["http://localhost:5173"]
+    cors_origins: list[str] | str = ["http://localhost:5173"]
+
+    @field_validator("cors_origins", mode="before")
+    @classmethod
+    def parse_cors_origins(cls, v: object) -> list[str]:
+        if isinstance(v, str):
+            v = v.strip()
+            if not v:
+                return ["*"]
+            if v.startswith("[") and v.endswith("]"):
+                try:
+                    parsed = json.loads(v)
+                    if isinstance(parsed, list):
+                        return [str(x) for x in parsed]
+                except Exception:
+                    pass
+                v = v[1:-1]
+            return [x.strip().strip("\"'") for x in v.split(",") if x.strip().strip("\"'")]
+        if isinstance(v, list):
+            return [str(x) for x in v]
+        return ["*"]
 
 
 settings = Settings()
