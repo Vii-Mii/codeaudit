@@ -62,7 +62,7 @@ def test_compact() -> None:
 
 
 def test_render_card_is_valid_svg_and_escapes_text() -> None:
-    for theme in ("light", "dark", "midnight", "sunset"):
+    for theme in ("ink", "sand", "carbon", "ember", "nebula"):
         svg = render_card(_stats(language="<script>alert(1)</script>"), theme)
         root = ET.fromstring(svg)
 
@@ -79,7 +79,7 @@ def test_render_error_is_valid_svg() -> None:
 
 
 def test_card_endpoint(fake: FakeGitHub) -> None:
-    response = TestClient(app).get("/api/v1/users/octo/card.svg?theme=dark")
+    response = TestClient(app).get("/api/v1/users/octo/card.svg?theme=carbon")
 
     assert response.status_code == 200
     assert response.headers["content-type"] == "image/svg+xml"

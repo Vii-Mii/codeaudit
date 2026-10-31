@@ -8,7 +8,7 @@ from typing import Annotated
 from fastapi import Depends, FastAPI, HTTPException, Path, Query, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.card import Theme, render_card, render_error
+from app.card import DEFAULT_THEME, Theme, render_card, render_error
 from app.config import settings
 from app.github import GitHubClient, GitHubError, RateLimited, UserNotFound
 from app.schemas import Filters, UserStats
@@ -82,7 +82,7 @@ async def get_user_card(
     login: Annotated[str, Path(pattern=GITHUB_LOGIN)],
     client: Annotated[GitHubClient | None, Depends(get_optional_github)],
     cache: Annotated[TTLCache, Depends(get_cache)],
-    theme: Theme = "light",
+    theme: Theme = DEFAULT_THEME,
     animate: bool = False,
 ) -> Response:
     try:

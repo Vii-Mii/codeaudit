@@ -37,7 +37,7 @@ API docs are served at `http://localhost:8000/docs`.
 Profile card for a GitHub README:
 
 ```markdown
-[![CodeAudit stats](https://<api-host>/api/v1/users/<login>/card.svg?theme=dark)](https://<web-host>/?u=<login>)
+[![CodeAudit stats](https://<api-host>/api/v1/users/<login>/card.svg?theme=carbon)](https://<web-host>/?u=<login>)
 ```
 
 ## Roadmap
