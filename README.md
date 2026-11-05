@@ -39,6 +39,7 @@ Profile card for a GitHub README:
 ```markdown
 [![CodeAudit stats](https://<api-host>/api/v1/users/<login>/card.svg?theme=carbon)](https://<web-host>/?u=<login>)
 ```
+[![CodeAudit stats](https://codeaudit-api.onrender.com/api/v1/users/Vii-Mii/card.svg?theme=carbon)](https://codeaudit-omega.vercel.app/?u=Vii-Mii)
 
 ## Roadmap
 
